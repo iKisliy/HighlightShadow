@@ -24,7 +24,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _radius = 30;
+        _radius = 2;
         _blurFilter = [[MTIMPSGaussianBlurFilter alloc] init];
         _blurFilter.radius = _radius;
     }

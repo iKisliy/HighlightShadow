@@ -47,9 +47,9 @@ namespace metalpetalshadowhighlight {
         float highlights_sign_negated = copysign(1.0, -highlight);
         float shadows_sign = copysign(1.0f, shadow);
         //constexpr float whitepoint = 1.0;
-        constexpr float compress = 0.3;
+        constexpr float compress = 0.4;
         constexpr float low_approximation = 0.005f;
-        constexpr float shadowColor = 1.5;
+        constexpr float shadowColor = 1.2;
         constexpr float highlightColor = 1.0;
         float tb0 = 1.0 - blurYIQ.x;
         if (tb0 < 1.0 - compress) {
@@ -87,8 +87,8 @@ namespace metalpetalshadowhighlight {
             }
         }
         if (tb0 > compress) {
-            float shadows2 = shadow * shadow * 1.5;
-            float shadows_xform = min(pow(tb0 / (1.0f - compress) - compress / (1.0f - compress), 0.75), 1.0f);
+            float shadows2 = shadow * shadow;
+            float shadows_xform = min(pow(tb0 / (1.0f - compress) - compress / (1.0f - compress), 0.85), 1.0f);
             
             while (shadows2 > 0.0f) {
                 float lref, href;
@@ -108,7 +108,7 @@ namespace metalpetalshadowhighlight {
                                 la_inverted);
                 
                 chunk = shadows2 > 1.0f ? 1.0f : shadows2;
-                optrans = chunk * shadows_xform * 1.2;
+                optrans = chunk * shadows_xform;
                 shadows2 -= 1.0f;
                 
                 sourceYIQ.x = la * (1.0 - optrans)
